@@ -1,6 +1,7 @@
 import mysql.connector
-from repository.inmemory.studentRepo import StudentRepository
-from domain.student import Student
+
+from src.repository.inmemory.studentRepo import StudentRepository
+from src.domain.student import Student
 
 
 class StudentDatabaseRepository(StudentRepository):

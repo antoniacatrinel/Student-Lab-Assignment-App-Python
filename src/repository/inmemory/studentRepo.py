@@ -1,6 +1,6 @@
-from domain.student import Student
-from exceptions.exceptions import RepositoryError
-from utils.utils import IterableStructure
+from src.domain.student import Student
+from src.exceptions.exceptions import RepositoryError
+from src.utils.utils import IterableStructure
 
 
 class StudentRepository:
@@ -30,6 +30,7 @@ class StudentRepository:
         for _stud in self._student_data:
             if int(_stud.student_id) == int(stud_id):
                 return _stud
+
         if ok:
             raise RepositoryError("Nonexistent student id!\n")
 
@@ -42,6 +43,7 @@ class StudentRepository:
         for _stud in self._student_data:
             if int(_stud.student_id) == int(new_student.student_id):
                 raise RepositoryError("Duplicate student id!\n")
+
         self._student_data.append(new_student)
 
     def remove_student_by_id(self, stud_id):
@@ -69,6 +71,7 @@ class StudentRepository:
                 new_stud = Student(stud_id, new_name, _stud.group)
                 self._student_data.__setitem__(i, new_stud)            # or setattr(stud, 'name', new_name) - builtins
                 ok = True
+
         if ok is False:
             raise RepositoryError("Nonexistent student id!\n")
 
@@ -86,5 +89,6 @@ class StudentRepository:
                 new_stud = Student(stud_id, _stud.name, new_group)
                 self._student_data.__setitem__(i, new_stud)          # or setattr(stud, 'group', new_group) - builtins
                 ok = True
+
         if ok is False:
             raise RepositoryError("Nonexistent student id!\n")

@@ -1,8 +1,9 @@
-from domain.grade import Grade
-from repository.inmemory.gradeRepo import GradeRepository
 import pickle
 import random
 import os
+
+from src.domain.grade import Grade
+from src.repository.inmemory.gradeRepo import GradeRepository
 
 
 class GradeBinFileRepository(GradeRepository):

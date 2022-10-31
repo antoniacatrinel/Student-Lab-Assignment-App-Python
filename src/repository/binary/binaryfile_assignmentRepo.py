@@ -1,9 +1,10 @@
-from domain.assignment import Assignment
-from repository.inmemory.assignmentRepo import AssignmentRepository
 import pickle
+import os
 from random import randint
 from datetime import datetime
-import os
+
+from src.domain.assignment import Assignment
+from src.repository.inmemory.assignmentRepo import AssignmentRepository
 
 
 class AssignmentBinFileRepository(AssignmentRepository):

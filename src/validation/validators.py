@@ -1,4 +1,4 @@
-from exceptions.exceptions import ValidationError, InputError
+from src.exceptions.exceptions import ValidationError, InputError
 import datetime
 
 

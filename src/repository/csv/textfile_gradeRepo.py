@@ -1,5 +1,5 @@
-from domain.grade import Grade
-from repository.inmemory.gradeRepo import GradeRepository
+from src.domain.grade import Grade
+from src.repository.inmemory.gradeRepo import GradeRepository
 
 
 class GradeTextFileRepository(GradeRepository):

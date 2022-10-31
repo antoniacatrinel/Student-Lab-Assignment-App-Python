@@ -1,6 +1,7 @@
-from domain.assignment import Assignment
 from datetime import datetime
 from random import randint
+
+from src.domain.assignment import Assignment
 
 
 class AssignmentService:
@@ -18,6 +19,9 @@ class AssignmentService:
 
     @property
     def repo(self):
+        """
+        :return: the assignment repository
+        """
         return self.__assignment_repo
 
     @property
@@ -57,7 +61,7 @@ class AssignmentService:
 
     def remove_assignment_run(self, assign_id):
         """
-        Searches a assignment with <assign_id> in the repository and if it exists, removes the assignment using
+        Searches an assignment with <assign_id> in the repository and if it exists, removes the assignment using
         the remove function from the repository
         :param assign_id: ID of the assignment, integer
         """
@@ -66,7 +70,7 @@ class AssignmentService:
 
     def update_assignment_description_run(self, assign_id, new_description):
         """
-        Updates a assignment's description using the update function from the repository
+        Updates an assignment's description using the update function from the repository
         :param assign_id: ID of the assignment, integer
         :param new_description: new description of assignment, string
         """
@@ -74,7 +78,7 @@ class AssignmentService:
 
     def update_assignment_deadline_run(self, assign_id, new_deadline):
         """
-        Updates a assignment's deadline using the update function from the repository
+        Updates an assignment's deadline using the update function from the repository
         :param assign_id: ID of the assignment, integer
         :param new_deadline: new deadline of assignment, string
         """

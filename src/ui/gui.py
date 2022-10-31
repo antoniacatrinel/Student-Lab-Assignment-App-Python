@@ -3,10 +3,10 @@ import traceback
 from tkinter import *
 from tkinter import messagebox
 
-from domain.assignment import Assignment
-from domain.grade import Grade
-from domain.student import Student
-from validation.validators import ValidatorInput
+from src.domain.assignment import Assignment
+from src.domain.grade import Grade
+from src.domain.student import Student
+from src.validation.validators import ValidatorInput
 
 MAIN_COLOR = "#cfe2f3"
 BG_COLOR = "#dad8d6"
@@ -14,7 +14,7 @@ BG_COLOR = "#dad8d6"
 
 def show_error(*args):
     err = traceback.format_exception(*args)
-    messagebox.showerror('Exception', err)
+    messagebox.showerror(f'Exception {err}')
 
 
 tk.Tk.report_callback_exception = show_error
@@ -357,8 +357,8 @@ class Gui:
 
         my_list = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family, bg=self.__button_background)
 
-        for item in self._student_service():
-            my_list.insert(END, str(self._student_service[item]))
+        for item in self._student_service.students:
+            my_list.insert(END, item.__str__())
 
         my_list.pack(side=TOP, fill=BOTH)
         scroll.config(command=my_list.yview)
@@ -405,7 +405,7 @@ class Gui:
                pady=self.__button_paddingY,
                relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
                command=lambda: self.add_assignment_run(window, assign_id, assign_description, assign_deadline)).grid(
-            row=2)
+            row=3)
 
     def add_assignment_run(self, main, assign_id, assign_desc, assign_deadline):
         window = Toplevel(self.__window)
@@ -580,8 +580,8 @@ class Gui:
 
         my_list = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family, bg=self.__button_background)
 
-        for item in self._assignment_service():
-            my_list.insert(END, str(self._assignment_service[item]))
+        for item in self._assignment_service.assignments:
+            my_list.insert(END, item.__str__())
 
         my_list.pack(side=TOP, fill=BOTH)
         scroll.config(command=my_list.yview)
@@ -631,13 +631,13 @@ class Gui:
         scroll = Scrollbar(window, orient='vertical')
         scroll.pack(side=RIGHT, fill=Y)
 
-        mylist = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family, bg=self.__button_background)
+        my_list = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family, bg=self.__button_background)
 
-        for item in self._grade_service():
-            mylist.insert(END, str(self._grade_service[item]))
+        for item in self._grade_service.grades:
+            my_list.insert(END, item.__str__())
 
-        mylist.pack(side=TOP, fill=BOTH)
-        scroll.config(command=mylist.yview)
+        my_list.pack(side=TOP, fill=BOTH)
+        scroll.config(command=my_list.yview)
 
     def assign_to_student(self, main):
         student_id = IntVar()
@@ -735,7 +735,6 @@ class Gui:
 
     def grade_students_window(self):
         window = Toplevel(self.__window)
-        window.geometry("400x400")
         window.title("Grade students")
 
         bg_label = Label(window, image=self.__background)
@@ -750,8 +749,7 @@ class Gui:
 
         first_entry.grid(row=0, column=1)
 
-        Button(window, text="Proceed", bd=self.__button_border, padx=self.__button_paddingX,
-               pady=self.__button_paddingY,
+        Button(window, text="Proceed", bd=self.__button_border, padx=self.__button_paddingX, pady=self.__button_paddingY,
                relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
                command=lambda: self.grade_student(window, stud_id)).grid(row=1)
 
@@ -765,41 +763,40 @@ class Gui:
         bg_label = Label(window, image=self.__background)
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        Label(window, text=f"Student with id {stud_id} has the following ungraded assignments:", bd=self.__button_border,
+        Label(window, text="Student has the following ungraded assignments:", bd=self.__button_border,
               padx=self.__button_paddingX - 100, pady=self.__button_paddingY, relief=self.__button_relief,
               font=self.__font_family, bg=self.__button_background).grid(row=0)
 
         scroll = Scrollbar(window, orient='vertical')
         scroll.pack(side=RIGHT, fill=Y)
 
-        my_list = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family,
-                          bg=self.__button_background)
+        my_list = Listbox(window, yscrollcommand=scroll.set, height=420, font=self.__font_family, bg=self.__button_background)
 
         cnt = 0
         for item in self._grade_service.grades:
             if int(item.student_id) == int(stud_id) and float(item.grade_value) == -1:
-                my_list.insert(END, str(self._grade_service.grades[item]))
+                my_list.insert(END, item.__str__())
                 cnt += 1
-
-        my_list.pack(side=TOP, fill=BOTH)
-        scroll.config(command=my_list.yview)
-
-        if int(cnt) == 0:
-            Label(window, text=f"Student with id {stud_id} does not have any ungraded assignments!",
-                  bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY, relief=self.__button_relief,
-                  font=self.__font_family, bg=self.__button_background).grid(row=3)
-
-        Label(window, text="Assignment Id:", bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY,
-              relief=self.__button_relief, font=self.__font_family, bg=self.__button_background).grid(row=4)
-
-        second_entry = Entry(window, textvariable=assignment_id, bd=self.__button_border, relief=self.__button_relief,
-                             font=self.__font_family, bg=self.__button_background)
-
-        second_entry.grid(row=0, column=1)
-
-        Button(window, text="Grade", bd=self.__button_border, padx=self.__button_paddingX, pady=self.__button_paddingY,
-               relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
-               command=lambda: self.grade_student_run(window, stud_id, assignment_id)).grid(row=2)
+        #
+        # my_list.pack(side=TOP, fill=BOTH)
+        # scroll.config(command=my_list.yview)
+        #
+        # if int(cnt) == 0:
+        #     Label(window, text=f"Student with id {stud_id} does not have any ungraded assignments!",
+        #           bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY, relief=self.__button_relief,
+        #           font=self.__font_family, bg=self.__button_background).grid(row=3)
+        #
+        # Label(window, text="Assignment Id:", bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY,
+        #       relief=self.__button_relief, font=self.__font_family, bg=self.__button_background).grid(row=4)
+        #
+        # second_entry = Entry(window, textvariable=assignment_id, bd=self.__button_border, relief=self.__button_relief,
+        #                      font=self.__font_family, bg=self.__button_background)
+        #
+        # second_entry.grid(row=0, column=1)
+        #
+        # Button(window, text="Grade", bd=self.__button_border, padx=self.__button_paddingX, pady=self.__button_paddingY,
+        #        relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
+        #        command=lambda: self.grade_student_run(window, stud_id, assignment_id)).grid(row=5)
 
     def grade_student_run(self, main, stud_id, assign_id):
         student_id = stud_id.get()
@@ -862,7 +859,7 @@ class Gui:
         Button(window, text="Students with best school situation", bd=self.__button_border,
                padx=self.__button_paddingX, pady=self.__button_paddingY, relief=self.__button_relief,
                font=self.__font_family, bg=self.__button_background, activebackground=self.__button_active_background,
-               command=lambda: self.windowMostActiveClient(window)).pack()
+               command=lambda: self.stat_best_situation(window)).pack()
 
         Label(window, text="").pack()
         Label(window, text="").pack()
@@ -870,7 +867,7 @@ class Gui:
 
     def stat_assignment_window(self, main):
         window = Toplevel(self.__window)
-        window.geometry("600x420")
+        window.geometry("820x420")
         window.title("Statistics for assignment")
 
         bg_label = Label(window, image=self.__background)
@@ -905,7 +902,7 @@ class Gui:
 
     def stat_late_window(self, main):
         window = Toplevel(self.__window)
-        window.geometry("1140x420")
+        window.geometry("820x420")
         window.title("Statistics late students")
 
         bg_label = Label(window, image=self.__background)
@@ -928,7 +925,7 @@ class Gui:
 
         main.destroy()
 
-    def windowMostActiveClient(self, main):
+    def stat_best_situation(self, main):
         window = Toplevel(self.__window)
         window.geometry("820x420")
         window.title("Best school situation")

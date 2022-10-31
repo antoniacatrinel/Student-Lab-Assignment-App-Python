@@ -1,6 +1,7 @@
 import mysql.connector
-from repository.inmemory.assignmentRepo import AssignmentRepository
-from domain.assignment import Assignment
+
+from src.repository.inmemory.assignmentRepo import AssignmentRepository
+from src.domain.assignment import Assignment
 
 
 class AssignmentDatabaseRepository(AssignmentRepository):

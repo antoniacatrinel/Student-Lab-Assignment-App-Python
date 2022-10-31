@@ -1,5 +1,6 @@
 import unittest
-from utils.utils import *
+
+from src.utils.utils import *
 
 """
 TESTS FOR ALL FUNCTIONALITIES RELATED TO UTILS

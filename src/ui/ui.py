@@ -1,9 +1,10 @@
-from domain.assignment import Assignment
-from domain.grade import Grade
-from domain.student import Student
-from exceptions.exceptions import ValidationError, RepositoryError, InputError, UndoError
-from validation.validators import ValidatorInput
 import datetime
+
+from src.domain.assignment import Assignment
+from src.domain.grade import Grade
+from src.domain.student import Student
+from src.exceptions.exceptions import ValidationError, RepositoryError, InputError, UndoError
+from src.validation.validators import ValidatorInput
 
 
 class Ui:

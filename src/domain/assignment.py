@@ -15,26 +15,42 @@ class Assignment:
 
     @property
     def assignment_id(self):
+        """
+        :return: ID of the assignment
+        """
         return self.__assignment_id
 
     @property
     def description(self):
+        """
+        :return: description of the assignment
+        """
         return self.__description
 
     @property
     def deadline(self):
+        """
+        :return: deadline of the assignment
+        """
         return self.__deadline
 
     @description.setter
     def description(self, new_description):
+        """
+        Sets the description of an assignment to a given value
+        """
         self.__description = new_description
 
     @deadline.setter
     def deadline(self, new_deadline):
+        """
+        Sets the deadline of an assignment to a given value
+        """
         self.__deadline = new_deadline
 
     def __eq__(self, other):
         """
+        Checks if two Assignment entities are equal
         :param other: another Assignment
         :return: True if the two Assignment entities are equal, False otherwise
         """

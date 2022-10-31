@@ -15,26 +15,42 @@ class Student:
 
     @property
     def student_id(self):
+        """
+        :return: ID of the student
+        """
         return self.__student_id
 
     @property
     def name(self):
+        """
+        :return: name of the student
+        """
         return self.__name
 
     @property
     def group(self):
+        """
+        :return: group of the student
+        """
         return self.__group
 
     @name.setter
     def name(self, new_name):
+        """
+        Sets the name of a student to a given value
+        """
         self.__name = new_name
 
     @group.setter
     def group(self, new_group):
+        """
+        Sets the group of a student to a given value
+        """
         self.__group = new_group
 
     def __eq__(self, other):
         """
+        Checks if two Student entities are equal
         :param other: another Student
         :return: True if the two Student entities are equal, False otherwise
         """

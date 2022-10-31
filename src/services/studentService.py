@@ -1,5 +1,6 @@
-from domain.student import Student
 from random import shuffle, randint
+
+from src.domain.student import Student
 
 
 class StudentService:
@@ -17,6 +18,9 @@ class StudentService:
 
     @property
     def repo(self):
+        """
+        :return: the student repository
+        """
         return self.__student_repo
 
     @property

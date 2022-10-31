@@ -1,28 +1,29 @@
-from configparser import ConfigParser
-from exceptions.exceptions import SettingsError
-from repository.database.database_assignmentRepo import AssignmentDatabaseRepository
-from repository.database.database_gradeRepo import GradeDatabaseRepository
-from repository.database.database_studentRepo import StudentDatabaseRepository
-from repository.inmemory.assignmentRepo import AssignmentRepository
-from repository.inmemory.gradeRepo import GradeRepository
-from repository.inmemory.studentRepo import StudentRepository
-from repository.json.jsonfile_assignmentRepo import AssignmentJsonFileRepository
-from repository.json.jsonfile_gradeRepo import GradeJsonFileRepository
-from repository.json.jsonfile_studentRepo import StudentJsonFileRepository
-from services.assignmentService import AssignmentService
-from services.gradeService import GradeService
-from services.studentService import StudentService
-from services.undoRedoService import UndoRedoService
-from ui.ui import Ui
-from ui.gui import Gui
-from validation.validators import ValidatorStudent, ValidatorAssignment, ValidatorGrade
-from repository.csv.textfile_studentRepo import StudentTextFileRepository
-from repository.csv.textfile_assignmentRepo import AssignmentTextFileRepository
-from repository.csv.textfile_gradeRepo import GradeTextFileRepository
-from repository.binary.binaryfile_studentRepo import StudentBinFileRepository
-from repository.binary.binaryfile_assignmentRepo import AssignmentBinFileRepository
-from repository.binary.binaryfile_gradeRepo import GradeBinFileRepository
 import os
+
+from configparser import ConfigParser
+from src.exceptions.exceptions import SettingsError
+from src.repository.database.database_assignmentRepo import AssignmentDatabaseRepository
+from src.repository.database.database_gradeRepo import GradeDatabaseRepository
+from src.repository.database.database_studentRepo import StudentDatabaseRepository
+from src.repository.inmemory.assignmentRepo import AssignmentRepository
+from src.repository.inmemory.gradeRepo import GradeRepository
+from src.repository.inmemory.studentRepo import StudentRepository
+from src.repository.json.jsonfile_assignmentRepo import AssignmentJsonFileRepository
+from src.repository.json.jsonfile_gradeRepo import GradeJsonFileRepository
+from src.repository.json.jsonfile_studentRepo import StudentJsonFileRepository
+from src.services.assignmentService import AssignmentService
+from src.services.gradeService import GradeService
+from src.services.studentService import StudentService
+from src.services.undoRedoService import UndoRedoService
+from src.ui.ui import Ui
+from src.ui.gui import Gui
+from src.validation.validators import ValidatorStudent, ValidatorAssignment, ValidatorGrade
+from src.repository.csv.textfile_studentRepo import StudentTextFileRepository
+from src.repository.csv.textfile_assignmentRepo import AssignmentTextFileRepository
+from src.repository.csv.textfile_gradeRepo import GradeTextFileRepository
+from src.repository.binary.binaryfile_studentRepo import StudentBinFileRepository
+from src.repository.binary.binaryfile_assignmentRepo import AssignmentBinFileRepository
+from src.repository.binary.binaryfile_gradeRepo import GradeBinFileRepository
 
 
 class Settings:

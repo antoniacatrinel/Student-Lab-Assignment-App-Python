@@ -1,4 +1,4 @@
-from exceptions.exceptions import UndoError
+from src.exceptions.exceptions import UndoError
 
 
 class UndoRedoService:
@@ -12,15 +12,17 @@ class UndoRedoService:
         self.__command_stack_top = -1
         self.__command_stack = []
         self.__undo_dict = {"add_student": self.undo_add_student, "remove_student": self.undo_remove_student, "cascade_remove": self.undo_cascade_remove,
-                            "update_student_name": self.undo_update_student_name, "update_student_group": self.undo_update_student_group, "add_assignment": self.undo_add_assignment, "remove_assignment": self.undo_remove_assignment,
+                            "update_student_name": self.undo_update_student_name, "update_student_group": self.undo_update_student_group,
+                            "add_assignment": self.undo_add_assignment, "remove_assignment": self.undo_remove_assignment,
                             "update_assignment_description": self.undo_update_assignment_description, "update_assignment_deadline": self.undo_update_assignment_deadline,
                             "give_student": self.undo_assign_to_student, "give_group": self.undo_cascade_assign_to_group,
                             "add_grade": self.undo_delete_grade, "grade_student": self.undo_grade_student}
         self.__redo_dict = {"add_student": self.redo_add_student, "remove_student": self.redo_remove_student, "cascade_remove": self.redo_cascade_remove,
-                            "update_student_name": self.redo_update_student_name, "update_student_group": self.redo_update_student_group, "add_assignment": self.redo_add_assignment,
-                            "remove_assignment": self.redo_remove_assignment, "update_assignment_description": self.redo_update_assignment_description,
-                            "update_assignment_deadline": self.redo_update_assignment_deadline, "give_student": self.redo_assign_to_student,
-                            "give_group": self.redo_assign_to_group, "add_grade": self.redo_delete_grade, "grade_student": self.redo_grade_student}
+                            "update_student_name": self.redo_update_student_name, "update_student_group": self.redo_update_student_group,
+                            "add_assignment": self.redo_add_assignment, "remove_assignment": self.redo_remove_assignment,
+                            "update_assignment_description": self.redo_update_assignment_description, "update_assignment_deadline": self.redo_update_assignment_deadline,
+                            "give_student": self.redo_assign_to_student, "give_group": self.redo_assign_to_group,
+                            "add_grade": self.redo_delete_grade, "grade_student": self.redo_grade_student}
 
     def add_command_to_stack(self, action, object):
         """
@@ -39,6 +41,9 @@ class UndoRedoService:
         return operation
 
     def get_stack(self):
+        """
+        :returns: the command stack
+        """
         return self.__command_stack
 
     @staticmethod
@@ -64,6 +69,7 @@ class UndoRedoService:
         """
         if self.__command_stack_top == -1:
             raise UndoError("No operation to undo!")
+
         last_operation = self.get_last_operation()
         action = self.get_last_operation_command(last_operation)
         object = self.get_last_operation_object(last_operation)
@@ -181,6 +187,7 @@ class UndoRedoService:
         """
         if self.__command_stack_top == len(self.__command_stack) - 1:
             raise UndoError("No operation to redo!")
+
         next_operation = self.get_next_operation()
         action = self.get_last_operation_command(next_operation)
         object = self.get_last_operation_object(next_operation)

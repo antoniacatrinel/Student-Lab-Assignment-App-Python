@@ -1,8 +1,9 @@
-from domain.student import Student
-from repository.inmemory.studentRepo import StudentRepository
 import pickle
-from random import shuffle, randint
 import os
+from random import shuffle, randint
+
+from src.domain.student import Student
+from src.repository.inmemory.studentRepo import StudentRepository
 
 
 class StudentBinFileRepository(StudentRepository):

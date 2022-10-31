@@ -1,6 +1,7 @@
 import mysql.connector
-from repository.inmemory.gradeRepo import GradeRepository
-from domain.grade import Grade
+
+from src.repository.inmemory.gradeRepo import GradeRepository
+from src.domain.grade import Grade
 
 
 class GradeDatabaseRepository(GradeRepository):

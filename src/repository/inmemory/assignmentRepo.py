@@ -1,6 +1,6 @@
-from domain.assignment import Assignment
-from exceptions.exceptions import RepositoryError
-from utils.utils import IterableStructure
+from src.domain.assignment import Assignment
+from src.exceptions.exceptions import RepositoryError
+from src.utils.utils import IterableStructure
 
 
 class AssignmentRepository:
@@ -30,6 +30,7 @@ class AssignmentRepository:
         for _assign in self._assignment_data:
             if int(_assign.assignment_id) == int(assign_id):
                 return _assign
+
         if ok:
             raise RepositoryError("Nonexistent assignment id!\n")
 
@@ -42,6 +43,7 @@ class AssignmentRepository:
         for assign in self._assignment_data:
             if int(assign.assignment_id) == int(new_assignment.assignment_id):
                 raise RepositoryError("Duplicate assignment id!\n")
+
         self._assignment_data.append(new_assignment)
 
     def remove_assignment_by_id(self, assign_id):
@@ -67,8 +69,9 @@ class AssignmentRepository:
             _assign = self._assignment_data[i]
             if int(_assign.assignment_id) == int(assign_id):
                 new_assign = Assignment(assign_id, new_description, _assign.deadline)
-                self._assignment_data.__setitem__(i, new_assign)  # or setattr(stud, 'name', new_name) - builtins
+                self._assignment_data.__setitem__(i, new_assign)        # or setattr(stud, 'name', new_name) - builtins
                 ok = True
+
         if ok is False:
             raise RepositoryError("Nonexistent assignment id!\n")
 
@@ -84,7 +87,8 @@ class AssignmentRepository:
             _assign = self._assignment_data[i]
             if int(_assign.assignment_id) == int(assign_id):
                 new_assign = Assignment(assign_id, _assign.description, new_deadline)
-                self._assignment_data.__setitem__(i, new_assign)              # or setattr(stud, 'group', new_group) - builtins
+                self._assignment_data.__setitem__(i, new_assign)        # or setattr(stud, 'group', new_group) - builtins
                 ok = True
+
         if ok is False:
             raise RepositoryError("Nonexistent assignment id!\n")

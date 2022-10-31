@@ -1,6 +1,6 @@
-from domain.grade import Grade
-from exceptions.exceptions import RepositoryError
-from utils.utils import IterableStructure
+from src.domain.grade import Grade
+from src.exceptions.exceptions import RepositoryError
+from src.utils.utils import IterableStructure
 
 
 class GradeRepository:
@@ -28,6 +28,7 @@ class GradeRepository:
         for _grade in self._grade_data:
             if int(_grade.assignment_id) == int(new_grade.assignment_id) and int(_grade.student_id) == int(new_grade.student_id):
                 raise RepositoryError("Duplicate grade!\n")
+
         self._grade_data.append(new_grade)
 
     def update_grade(self, assignment_id, student_id):
@@ -41,6 +42,7 @@ class GradeRepository:
             if int(_grade.assignment_id) == int(assignment_id) and int(_grade.student_id) == int(student_id):
                 _grade.grade_value = float(-1)
                 return
+
         if ok:
             raise RepositoryError("Nonexistent grade!\n")
 
@@ -55,6 +57,7 @@ class GradeRepository:
             if int(_grade.assignment_id) == int(grade.assignment_id) and int(_grade.student_id) == int(grade.student_id):
                 self._grade_data.__delitem__(i)
                 return
+
         if ok:
             raise RepositoryError("Nonexistent grade!\n")
 
@@ -69,6 +72,7 @@ class GradeRepository:
         for _grade in self._grade_data:
             if int(_grade.student_id) == int(stud_id):
                 return _grade
+
         if ok:
             raise RepositoryError("Nonexistent student id!\n")
 
@@ -83,6 +87,7 @@ class GradeRepository:
         for _grade in self._grade_data:
             if int(_grade.assignment_id) == int(assign_id):
                 return _grade
+
         if ok:
             raise RepositoryError("Nonexistent assignment id!\n")
 
@@ -98,6 +103,7 @@ class GradeRepository:
         for _grade in self._grade_data:
             if int(_grade.student_id) == int(student_id) and int(_grade.assignment_id) == int(assignment_id):
                 return _grade
+
         if ok:
             raise RepositoryError("Nonexistent assignment id in student's ungraded assignments!\n")
 

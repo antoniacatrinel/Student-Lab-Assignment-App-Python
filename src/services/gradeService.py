@@ -1,7 +1,8 @@
-from domain.grade import Grade
-from exceptions.exceptions import RepositoryError
 import random
-from utils.utils import *
+
+from src.domain.grade import Grade
+from src.exceptions.exceptions import RepositoryError
+from src.utils.utils import comb_sort, filter_list
 
 
 class GradeService:
@@ -25,6 +26,9 @@ class GradeService:
 
     @property
     def repo(self):
+        """
+        :return: the grade repository
+        """
         return self.__grade_repo
 
     @property
@@ -59,10 +63,13 @@ class GradeService:
         :return:
         """
         students_list = self.__student_repo.get_all_students()
-        for i in range(1, 21):
+        for i in range(1, 11):
             _student = random.choice(students_list)
             student_id = _student.student_id
-            grade_value = self.generate_grade_value()
+            if i % 3 == 0:
+                grade_value = -1
+            else:
+                grade_value = self.generate_grade_value()
             grade = Grade(int(i), student_id, grade_value)
             self.__grade_repo.add_grade(grade)
 
@@ -158,9 +165,6 @@ class GradeService:
         self.__student_repo.search_by_id(student_id)
         grade = Grade(assignment_id, student_id, grade_value)
         self.__grade_val.validate_grade(grade)
-        grades = self.__grade_repo.get_all_grades()
-        # if grade not in grades:
-            # raise RepositoryError("Nonexistent assignment id in student's ungraded assignments!\n")
         self.__grade_repo.repo_grade_student(assignment_id, student_id, grade_value)
 
     def remove_assign_to_student(self, assignment_id, student_id):
@@ -342,7 +346,8 @@ class GradeService:
         for grade in grades:
             assign_id = grade.assignment_id
             assignment = self.__assignment_repo.search_by_id(assign_id)
-            if self.__grade_val.validate_late_deadline(assignment.deadline) is True and float(grade.grade_value) == -1 and self.search_in_list(list_late, grade.student_id) is False:
+            if self.__grade_val.validate_late_deadline(assignment.deadline) is True and float(grade.grade_value) == -1 and \
+               self.search_in_list(list_late, grade.student_id) is False:
                 ungraded = self.count_ungraded_late_assignments_for_student(grade.student_id)
                 dict_stud = {'id': int(grade.student_id), 'ungraded': int(ungraded)}
                 list_late.append(dict_stud)

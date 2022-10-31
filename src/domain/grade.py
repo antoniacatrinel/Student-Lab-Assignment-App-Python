@@ -1,6 +1,6 @@
 class Grade:
     """
-    Class that represents an Grade by assignment ID, student ID and grade value
+    Class that represents a Grade by assignment ID, student ID and grade value
     """
     def __init__(self, assignment_id, student_id, grade_value=-1):
         """
@@ -15,22 +15,35 @@ class Grade:
 
     @property
     def assignment_id(self):
+        """
+        :return: ID of the graded assignment
+        """
         return self.__assignment_id
 
     @property
     def student_id(self):
+        """
+        :return: ID of the graded student
+        """
         return self.__student_id
 
     @property
     def grade_value(self):
+        """
+        :return: value of the grade
+        """
         return self.__grade_value
 
     @grade_value.setter
     def grade_value(self, new_grade_value):
+        """
+        Sets the grade value of a grade to a given value
+        """
         self.__grade_value = new_grade_value
 
     def __eq__(self, other):
         """
+        Checks if two Grade entities are equal
         :param other: another Grade
         :return: True if the two Grade entities are equal, False otherwise
         """

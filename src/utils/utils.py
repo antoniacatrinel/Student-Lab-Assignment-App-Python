@@ -1,9 +1,7 @@
-"""
-ITERABLE STRUCTURE
-"""
-
-
 class IterableStructure:
+    """
+    Class that implements an iterable structure
+    """
     def __init__(self):
         self.__index = 0
         self.__list = []
