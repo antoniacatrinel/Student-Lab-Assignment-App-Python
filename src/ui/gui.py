@@ -8,8 +8,8 @@ from src.domain.grade import Grade
 from src.domain.student import Student
 from src.validation.validators import ValidatorInput
 
-MAIN_COLOR = "#cfe2f3"
-BG_COLOR = "#dad8d6"
+MAIN_COLOR = "#ccccff"
+BG_COLOR = "#99ccff"
 
 
 def show_error(*args):
@@ -34,8 +34,8 @@ class Gui:
         self.__button_paddingX = 200
         self.__button_paddingY = 5
         self.__button_border = 3
-        self.__button_active_background = "#f4d7d7"
-        self.__button_background = "#f0e3e3"
+        self.__button_active_background = "#ccccff"
+        self.__button_background = "#99ccff"
         self.__button_relief = RAISED
 
         self._student_service = student_service
@@ -755,7 +755,6 @@ class Gui:
 
     def grade_student(self, main, stud_id):
         assignment_id = IntVar()
-
         window = Toplevel(self.__window)
         main.destroy()
         window.title("Grade student")
@@ -777,26 +776,26 @@ class Gui:
             if int(item.student_id) == int(stud_id) and float(item.grade_value) == -1:
                 my_list.insert(END, item.__str__())
                 cnt += 1
-        #
-        # my_list.pack(side=TOP, fill=BOTH)
-        # scroll.config(command=my_list.yview)
-        #
-        # if int(cnt) == 0:
-        #     Label(window, text=f"Student with id {stud_id} does not have any ungraded assignments!",
-        #           bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY, relief=self.__button_relief,
-        #           font=self.__font_family, bg=self.__button_background).grid(row=3)
-        #
-        # Label(window, text="Assignment Id:", bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY,
-        #       relief=self.__button_relief, font=self.__font_family, bg=self.__button_background).grid(row=4)
-        #
-        # second_entry = Entry(window, textvariable=assignment_id, bd=self.__button_border, relief=self.__button_relief,
-        #                      font=self.__font_family, bg=self.__button_background)
-        #
-        # second_entry.grid(row=0, column=1)
-        #
-        # Button(window, text="Grade", bd=self.__button_border, padx=self.__button_paddingX, pady=self.__button_paddingY,
-        #        relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
-        #        command=lambda: self.grade_student_run(window, stud_id, assignment_id)).grid(row=5)
+
+        my_list.pack(side=TOP, fill=BOTH)
+        scroll.config(command=my_list.yview)
+
+        if int(cnt) == 0:
+            Label(window, text=f"Student with id {stud_id} does not have any ungraded assignments!",
+                  bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY, relief=self.__button_relief,
+                  font=self.__font_family, bg=self.__button_background).grid(row=3)
+
+        Label(window, text="Assignment Id:", bd=self.__button_border, padx=self.__button_paddingX - 100, pady=self.__button_paddingY,
+              relief=self.__button_relief, font=self.__font_family, bg=self.__button_background).grid(row=4)
+
+        second_entry = Entry(window, textvariable=assignment_id, bd=self.__button_border, relief=self.__button_relief,
+                             font=self.__font_family, bg=self.__button_background)
+
+        second_entry.grid(row=0, column=1)
+
+        Button(window, text="Grade", bd=self.__button_border, padx=self.__button_paddingX, pady=self.__button_paddingY,
+               relief=self.__button_relief, font=self.__font_family, bg=self.__button_background,
+               command=lambda: self.grade_student_run(window, stud_id, assignment_id)).grid(row=5)
 
     def grade_student_run(self, main, stud_id, assign_id):
         student_id = stud_id.get()
